@@ -1,20 +1,34 @@
-@*
- * This template takes a single argument, a String containing a
- * message to display.
- *@
-@(message: String)
+@import helper._
+@()(implicit request: RequestHeader, messages: Messages)
 
-@*
- * Call the `main` template with two arguments. The first
- * argument is a `String` with the title of the page, the second
- * argument is an `Html` object containing the body of the page.
- *@
-@main("Welcome to Play") {
+@main("Image Colorizer | Jayasurya Obbu") {
 
-    @*
-     * Get an `Html` object by calling the built-in Play welcome
-     * template and passing a `String` message.
-     *@
-    @welcome(message, style = "scala")
+    <h1>Welcome to Image Colorizer </h1>
+
+    @helper.form(action = routes.HomeController.imageColorizer, Symbol("enctype") -> "multipart/form-data") {
+        @CSRF.formField
+        <h3>Upload Black and White Image:</h3>
+        <table>
+            <tr>
+                <td>
+                    <label for="bwimage">Image: </label>
+                </td>
+                <td id="doc_label_input">
+                    <input type="file" id="bwimage" name="bwtocolor" accept="image/*">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Submit">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="@routes.Assets.versioned("images/photo.png")">
+                </td>
+            </tr>
+        </table>
+    }
+
 
 }
